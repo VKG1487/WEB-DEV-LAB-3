@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vibhash Kumar Giri — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* ====== VARIABLES & RESET ====== */
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7;
+      --accent-2:#60a5fa;
+      --glass: rgba(255,255,255,0.04);
+      --radius:1rem;
+      --fw-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      font-size:16px; /* base -> 1rem = 16px */
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:var(--fw-sans);
+      background:linear-gradient(180deg,#071025 0%, #0f1724 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:1.5rem; /* breathing room on mobile */
+    }
+
+    /* ====== LAYOUT (MOBILE-FIRST) ====== */
+    .container{max-width:1100px;margin:0 auto}
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:1rem;padding:0.75rem 0;
+    }
+    .brand{display:flex;align-items:center;gap:0.75rem}
+    .logo{
+      width:3.2rem;height:3.2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#04263a;font-size:1.1rem
+    }
+    nav{display:flex;gap:0.5rem;align-items:center}
+    .nav-links{display:flex;gap:0.5rem;flex-wrap:wrap}
+    .nav-links a{
+      color:var(--muted);text-decoration:none;padding:0.45rem 0.6rem;border-radius:0.6rem;font-weight:600;font-size:0.95rem;transition:all 220ms ease;
+    }
+    .nav-links a:hover{color:var(--accent);transform:translateY(-3px)}
+    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#04263a;padding:0.5rem 0.8rem;border-radius:0.6rem;font-weight:700;border:none;cursor:pointer;transition:transform .22s ease, box-shadow .22s ease}
+    .cta:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 30px rgba(96,165,250,0.12)}
+
+    /* HERO */
+    .hero{
+      display:flex;flex-direction:column;gap:1.2rem;align-items:stretch;padding:1.6rem 0 2rem;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+    }
+    .hero-inner{
+      display:flex;flex-direction:column;gap:1rem;align-items:flex-start;
+    }
+    .intro{
+      display:flex;flex-direction:column;gap:0.6rem;
+    }
+    h1{font-size:1.8rem;line-height:1.05}
+    .role{display:inline-block;font-weight:700;padding:0.15rem 0.4rem;border-radius:0.5rem}
+    /* color-changing animation for role */
+    @keyframes colorShift{
+      0%{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#04263a}
+      33%{background:linear-gradient(90deg,#fca5a5,#f9a8d4);color:#2b0a10}
+      66%{background:linear-gradient(90deg,#fef08a,#fde68a);color:#2b270a}
+      100%{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#04263a}
+    }
+    .role.animated{animation:colorShift 6s linear infinite}
+
+    .hero-flex{display:flex;flex-direction:column;gap:1rem;align-items:stretch}
+    .hero-text{flex:1}
+    .hero-cta{margin-top:0.5rem}
+
+    /* simple profile circle - no external asset */
+    .profile-wrap{display:flex;justify-content:center}
+    .avatar{
+      width:12rem;height:12rem;border-radius:50%;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:grid;place-items:center;font-weight:800;font-size:2.2rem;color:#04263a;box-shadow:0 20px 40px rgba(2,6,23,0.6);transform:translateY(0);transition:transform .35s ease
+    }
+    .avatar:hover{transform:translateY(-4px) rotate(-360deg)}
+
+    /* ABOUT */
+    section{margin-top:2rem}
+    .about{display:flex;flex-direction:column;gap:1rem;padding:1.2rem;border-radius:var(--radius);background:var(--glass)}
+    .about p{color:var(--muted)}
+
+    /* SKILLS & PROJECTS -> using CSS Grid */
+    .grid{display:grid;gap:1rem}
+    .skills-grid{grid-template-columns:repeat(2,1fr)}
+    .skill-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:1rem;border-radius:0.8rem;border:1px solid rgba(255,255,255,0.03);display:flex;gap:0.8rem;align-items:center;transition:transform .28s ease, box-shadow .28s ease}
+    .skill-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(22,163,74,0.06)}
+    .skill-bubble{width:3.2rem;height:3.2rem;border-radius:0.6rem;display:grid;place-items:center;font-weight:700}
+    .projects-grid{grid-template-columns:repeat(1,1fr)}
+    .project{padding:1rem;border-radius:0.8rem;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);transition:transform .28s ease, box-shadow .28s ease}
+    .project:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 18px 36px rgba(96,165,250,0.06)}
+    .project h4{margin-bottom:0.35rem}
+    .project p{color:var(--muted);font-size:0.95rem}
+
+    /* CONTACT */
+    .contact-form{display:flex;flex-direction:column;gap:0.7rem}
+    .field{display:flex;flex-direction:column}
+    input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:0.6rem;border-radius:0.5rem;color:inherit;font-size:0.95rem}
+    input:focus,textarea:focus{outline:none;border-color:rgba(96,165,250,0.6);box-shadow:0 8px 24px rgba(96,165,250,0.06)}
+
+    footer{margin-top:2rem;padding:1rem 0;text-align:center;color:var(--muted);font-size:0.9rem}
+
+    /* NAV MOBILE TOGGLE */
+    .nav-toggle{display:inline-flex;border:1px solid rgba(255,255,255,0.04);padding:0.35rem;border-radius:0.5rem;background:transparent;color:var(--muted)}
+
+    /* ====== MEDIA QUERIES (MOBILE FIRST) ====== */
+    @media (min-width:540px){
+      body{padding:2rem}
+      .hero-inner{flex-direction:row;align-items:center}
+      .hero-flex{flex-direction:row;gap:1.6rem}
+      .profile-wrap{justify-content:flex-end}
+      .projects-grid{grid-template-columns:repeat(2,1fr)}
+      .skills-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (min-width:900px){
+      body{padding:3rem}
+      header{padding:1rem 0}
+      h1{font-size:2.4rem}
+      .hero{padding:2rem}
+      .hero-inner{gap:2rem}
+      .hero-flex{gap:2rem}
+      .projects-grid{grid-template-columns:repeat(3,1fr)}
+      .skills-grid{grid-template-columns:repeat(4,1fr)}
+      .nav-links a{font-size:1rem}
+      nav{gap:1rem}
+    }
+
+    /* larger screens - center container */
+    @media (min-width:1100px){
+      .container{max-width:1200px}
+    }
+
+    /* small tweaks for very small screens */
+    @media (max-width:420px){
+      .logo{width:2.6rem;height:2.6rem;font-size:0.95rem}
+      .avatar{width:10.5rem;height:10.5rem;font-size:1.9rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">VK</div>
+        <div style="font-weight:700">Vibhash Kumar Giri</div>
+      </div>
+
+      <nav>
+        <div class="nav-links" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-flex">
+            <div class="hero-text intro">
+              <div style="color:var(--muted);font-weight:600">Hello, I'm</div>
+              <h1>Vibhash Kumar Giri</h1>
+              <div class="role animated" style="width:max-content;margin-top:0.4rem">Full Stack Developer</div>
+              <p style="color:var(--muted);margin-top:0.6rem;max-width:60ch">I build responsive, accessible and modern web interfaces using HTML, CSS, JavaScript and modern frameworks. I enjoy turning ideas into delightful digital experiences.</p>
+              <div class="hero-cta">
+                <button class="cta" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
+              </div>
+            </div>
+
+            <div class="profile-wrap">
+              <div class="avatar">VKG</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <h2>About</h2>
+        <p>I am a computer science student and aspiring full stack developer. I focus on clean code, responsive layouts, and thoughtful UX. I like learning new technologies and building projects that solve real problems.</p>
+      </section>
+
+      <section id="skills" style="margin-top:1rem">
+        <h2>Skills</h2>
+        <div class="grid skills-grid" style="margin-top:0.8rem">
+          <div class="skill-card"><div class="skill-bubble" style="background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#04263a">HTML</div><div><strong>HTML5</strong><div style="color:var(--muted);font-size:0.9rem">Semantic markup & accessibility</div></div></div>
+          <div class="skill-card"><div class="skill-bubble" style="background:#ffd166;color:#2b1f03">CSS</div><div><strong>CSS3</strong><div style="color:var(--muted);font-size:0.9rem">Layouts with Flexbox & Grid</div></div></div>
+        </div>
+      </section>
+
+      <section id="projects" style="margin-top:1rem">
+        <h2>Projects</h2>
+        <div class="grid projects-grid" style="margin-top:0.8rem">
+          <article class="project">
+            <h4>Portfolio Website</h4>
+            <p>A polished one-page portfolio featuring responsive layouts, animations, and a contact form. Built with modern CSS patterns.</p>
+            <div style="margin-top:0.7rem"><a href="#" style="text-decoration:none;color:var(--accent);font-weight:700">Live →</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" style="margin-top:1rem">
+        <h2>Contact</h2>
+        <form class="contact-form" onsubmit="event.preventDefault();alert('Thanks — form demo only!');">
+          <div class="field"><label>Name</label><input type="text" placeholder="Your name" required></div>
+          <div class="field"><label>Email</label><input type="email" placeholder="name@domain.com" required></div>
+          <div class="field"><label>Message</label><textarea rows="5" placeholder="Hi, I'd like to talk about..." required></textarea></div>
+          <div><button class="cta" type="submit">Send Message</button></div>
+        </form>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2025 Vibhash Kumar Giri — Built with HTML & CSS · <span style="color:var(--muted)">Responsive, Flexbox, Grid, Animations</span>
+    </footer>
+
+  </div>
+
+  <script>
+    // small enhancement: keyboard-friendly skip to main
+    (function(){
+      // nothing heavy — all done with CSS/HTML
+    })();
+  </script>
+</body>
+</html>
